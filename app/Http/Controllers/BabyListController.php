@@ -60,17 +60,18 @@ class BabyListController extends Controller
      */
     public function update(Request $request, BabyList $babyList)
     {
-        //
+        tap($babyList)->update($request->only(['success_yn','description','updated_at']));
     }
 
     /**
      * Remove the specified resource from storage.
      *
      * @param  \App\Models\BabyList  $babyList
-     * @return Response
+     * @return JsonResponse
      */
-    public function destroy(BabyList $babyList)
+    public function destroy(BabyList $babyList): JsonResponse
     {
-        //
+        $babyList->delete();
+        return $this->responseJson(null, 204);
     }
 }

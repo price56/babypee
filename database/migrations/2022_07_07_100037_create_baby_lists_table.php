@@ -15,11 +15,16 @@ return new class extends Migration
     {
         Schema::create('baby_lists', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('user_id')->comment('유저 아이디');
             $table->string('name');
             $table->enum('type', ['대변', '소변'])->index();
             $table->enum('success_yn', ['Y', 'N'])->default('N');
             $table->text('description')->nullable();
             $table->timestamps();
+            $table->foreign('user_id')
+                ->on('users')
+                ->references('id')
+                ->onDelete('CASCADE');
         });
     }
 

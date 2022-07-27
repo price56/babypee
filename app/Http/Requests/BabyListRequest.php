@@ -20,6 +20,6 @@ class BabyListRequest extends FormRequest
 
     public function getUserId(): int
     {
-        return $this->id;
+        return $this->user_id;
     }
 }

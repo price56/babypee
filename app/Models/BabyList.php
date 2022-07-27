@@ -20,5 +20,11 @@ class BabyList extends Model
     protected $casts = [
         'created_at' => DateTimeStringCast::class,
         'updated_at' => DateTimeStringCast::class,
+        'email_verified_at' => DateTimeStringCast::class,
     ];
+
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
+    }
 }
