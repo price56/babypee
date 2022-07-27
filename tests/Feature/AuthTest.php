@@ -30,7 +30,6 @@ class AuthTest extends TestCase
      */
     public function 올바른_이메일과_비밀번호로_로그인_할_수_있다()
     {
-//        dd($this->successLoginData($this->email()));
         $response = $this->postJson(route('auth.login'), $this->successLoginData($this->email()));
 
         $response->assertStatus(200)

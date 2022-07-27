@@ -12,7 +12,7 @@ class joinRequest extends FormRequest
             'email' => ['required', 'email'],
             'name' => ['required', 'string'],
             'mobile' => ['required'],
-            'password' => 'required|confirmed|min:8|max:32|regex:/^(?=.*[a-zA-Z])(?=.*[0-9]).{8,32}$/',
+            'password' => 'required|min:8|max:32|regex:/^(?=.*[a-zA-Z])(?=.*[0-9]).{8,32}$/',
         ];
     }
 

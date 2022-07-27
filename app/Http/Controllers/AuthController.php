@@ -6,6 +6,7 @@ use App\Events\Auth\UserJoinEvent;
 use App\Exceptions\ApiException;
 use App\Http\Requests\Auth\JoinRequest;
 use App\Http\Requests\LoginRequest;
+use App\Http\Requests\WithDrawRequest;
 use App\Services\Auth\AuthService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -58,5 +59,19 @@ class AuthController extends Controller
             ], 201);
         });
     }
+
+    /**
+     * @throws ApiException
+     */
+    public function withdraw(WithDrawRequest $request, AuthService $authService): JsonResponse
+    {
+        $user = $request->user();
+        $authService->checkUserPassword($request->get('password'));
+
+        $this->authService->withdrawUserAccount($user);
+
+        return $this->responseJson([], 204);
+    }
+
 
 }

@@ -14,4 +14,16 @@ if (!function_exists('getDeviceType')) {
             default => null,
         };
     }
+
+    // Param Limit 가 있을 경우에만 paginate 처리
+    if (!function_exists('choicePaginate')) {
+        function choicePaginate($query)
+        {
+            $limit = request('limit', 15);
+
+            return request()->has('simple')
+                ? $query->latest('id')->simplePaginate($limit)
+                : $query->latest('id')->paginate($limit);
+        }
+    }
 }

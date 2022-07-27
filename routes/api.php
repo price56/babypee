@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\BabyListController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -21,7 +22,19 @@ Route::prefix('/auth')->controller(AuthController::class)->group(function () {
 });
 
 Route::middleware('auth:sanctum')->group(function () {
+    // # 회원 인증
     Route::prefix('auth')->controller(AuthController::class)->group(function(){
         Route::post('logout', 'logout')->name('auth.logout');
+        Route::delete('withdraw', 'withdraw')->name('auth.withdraw');
     });
+
+    // # 게시판
+    Route::prefix('list')->controller(BabyListController::class)->group(function () {
+        Route::get('/',  'index')->name('index');
+        Route::post('/', 'store')->name('store');
+        Route::get('/{list}', 'show')->name('show');
+        Route::patch('/{list}', 'update')->name('update');
+        Route::delete('/{list}', 'destroy')->name('delete');
+    });
+
 });
