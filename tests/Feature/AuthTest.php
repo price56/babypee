@@ -43,6 +43,8 @@ class AuthTest extends TestCase
      */
     public function 올바른_이메일과_틀린_비밀번호로는_로그인_할_수_없다()
     {
+        $this->withExceptionHandling();
+
         $response = $this->postJson(route('auth.login'), $this->failLoginData($this->email()));
 
         $response->assertStatus(401)->assertExactJson([
@@ -70,6 +72,8 @@ class AuthTest extends TestCase
      */
     public function 올바른_휴대폰번호와_틀린비밀번호로는_로그인_할_수_없다()
     {
+        $this->withExceptionHandling();
+
         $response = $this->postJson(route('auth.login'), $this->failLoginData($this->mobile()));
 
         $response->assertStatus(401)->assertExactJson([
@@ -84,6 +88,7 @@ class AuthTest extends TestCase
      */
     public function 회원의_로그인은_필수값이_입력되지_않으면_에러를_리턴한다()
     {
+        $this->withExceptionHandling();
         // mobile or email 검증
         $this->postJson(route('auth.login'), [
             'password' => self::PASSWORD,

@@ -9,6 +9,7 @@ class ApiException extends Exception
 {
     public function __construct(public $message, public $statusCode = 400)
     {
+        parent::__construct();
     }
 
     public function render(): JsonResponse
