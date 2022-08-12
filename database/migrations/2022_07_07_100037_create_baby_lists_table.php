@@ -20,6 +20,7 @@ return new class extends Migration
             $table->enum('type', ['대변', '소변'])->index();
             $table->enum('success_yn', ['Y', 'N'])->default('N');
             $table->text('description')->nullable();
+            $table->dateTime('event_time_at')->comment('변 본 시간');
             $table->timestamps();
             $table->foreign('user_id')
                 ->on('users')

@@ -60,7 +60,7 @@ class BabyListController extends Controller
      */
     public function update(Request $request, BabyList $babyList)
     {
-        tap($babyList)->update($request->only(['success_yn','description','updated_at']));
+        tap($babyList)->update($request->only(['success_yn','description','event_time_at','updated_at']));
     }
 
     /**

@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use App\Enum\BowelType;
+use Carbon\Carbon;
 use Illuminate\Foundation\Http\FormRequest;
 
 class BabyStoreRequest extends FormRequest
@@ -27,6 +28,7 @@ class BabyStoreRequest extends FormRequest
             'type' => $this->get('type'),
             'success_yn' => $this->get('success_yn'),
             'description' => $this->get('description'),
+            'event_time_at' => Carbon::now()->toDateTimeString(),
         ];
     }
 }
