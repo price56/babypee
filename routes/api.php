@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\Auth\EmailVerificationNotificationController;
+use App\Http\Controllers\Auth\EmailVerificationPromptController;
+use App\Http\Controllers\Auth\VerifyEmailController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BabyListController;
 use Illuminate\Http\Request;
@@ -24,6 +27,17 @@ Route::prefix('/auth')->controller(AuthController::class)->group(function () {
 Route::middleware('auth:sanctum')->group(function () {
     // # 회원 인증
     Route::prefix('auth')->controller(AuthController::class)->group(function(){
+        Route::get('verify-email', [EmailVerificationPromptController::class, '__invoke'])
+            ->name('verification.notice');
+
+        Route::get('verify-email/{id}/{hash}', [VerifyEmailController::class, '__invoke'])
+            ->middleware(['signed', 'throttle:6,1'])
+            ->name('verification.verify');
+
+        Route::post('email/verification-notification', [EmailVerificationNotificationController::class, 'store'])
+            ->middleware('throttle:6,1')
+            ->name('verification.send');
+
         Route::post('logout', 'logout')->name('auth.logout');
         Route::delete('withdraw', 'withdraw')->name('auth.withdraw');
     });
